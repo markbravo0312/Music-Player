@@ -1,7 +1,6 @@
 import pygame 
 import tkinter as tkr
 
-
 pygame.init()
 
 # ZOMBIE CODE ; screen = pygame.display.set_mode([800, 800])
