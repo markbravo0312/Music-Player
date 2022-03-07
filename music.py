@@ -1,6 +1,3 @@
-from kivy.config import Config
-Config.set('graphics', 'fullscreen', '0')
-
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.popup import Popup
@@ -186,7 +183,7 @@ class MusicPlayer(Widget):
                         self.ids.nowplay.text = bt.text
                     
                 btn = Button(text=song[:-4], on_press=playSong)
-                icon = Button(size_hint_x=None, width=50, background_down="ico.png", background_normal="ico.png")
+                icon = Button(size_hint_x=None, width=50, background_down="icon.png", background_normal="icon.png")
 
                 #Color Buttons Alternatively
                 if songs.index(song)%2 == 0:
