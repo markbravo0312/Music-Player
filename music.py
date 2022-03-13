@@ -4,14 +4,21 @@ from kivy.uix.popup import Popup
 from kivy.uix.button import Button
 from kivy.uix.widget import Widget
 from kivy.core.audio import SoundLoader
+from kivy.core.audio import Sound
 from kivy.properties import ObjectProperty
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.slider import Slider
+import os
+os.environ["KIVY_AUDIO"] = "ffpyplayer"
+
 
 from os import listdir, path
 
+
 Builder.load_string('''
 <MusicPlayer>:
+
     canvas.before:
         Color:
             rgba: 0, 0, .1, 1
@@ -31,6 +38,7 @@ Builder.load_string('''
         background_color: 0,.5,1,1
         pos: root.width-200, root.top-35
         on_release: root.getSongs()
+
     ScrollView:
         size_hint: None, None
         size: root.width, root.height-135
@@ -42,6 +50,7 @@ Builder.load_string('''
             size_hint_y: None
             row_force_default: True
             row_default_height: 40
+
     GridLayout:
         rows: 1
         pos: 0, 50
@@ -52,20 +61,33 @@ Builder.load_string('''
         Button:
             text: '||'
             background_color: 0,.5,1,1
+            on_press: root.pause()
         Button:
             text: '-->'
             background_color: 0,.5,1,1
+    
+    Slider:
+        id: volumeSlider
+        min: 0
+        max: 100
+        value: 50
+        on_value: musiclayout.change_volume()
+
+    
     Button:
         id: nowplay
         text: 'Now Playing'
         pos: 0,0
         size: root.width, 50
         background_color: 0,.5,1,1
+
     Label:
         id: status
         text: ''
         center: root.center
+
 <ChooseFile>:
+
     canvas.before:
         Color:
             rgba: 0, 0, .4, 1
@@ -78,6 +100,7 @@ Builder.load_string('''
         orientation: "vertical"
         FileChooserIconView:
             id: filechooser
+
         BoxLayout:
             size_hint_y: None
             height: 30
@@ -85,11 +108,13 @@ Builder.load_string('''
                 text: "Cancel"
                 background_color: 0,.5,1,1
                 on_release: root.cancel()
+
             Button:
                 text: "Select Folder"
                 background_color: 0,.5,1,1
                 on_release: root.select(filechooser.path)
             
+
 ''')
 
 class ChooseFile(FloatLayout):
@@ -134,6 +159,10 @@ class MusicPlayer(Widget):
         self.savepath(self.directory)
         self.getSongs()
         self.dismiss_popup()
+        
+    def pause(self):
+        if isinstance(self.nowPlaying, Sound):
+            self.nowPlaying.stop()
 
     def getSongs(self):
 
@@ -193,6 +222,12 @@ class MusicPlayer(Widget):
                     
                 self.ids.scroll.add_widget(icon) #Add icon to layout
                 self.ids.scroll.add_widget(btn) #Add btn to layout
+                
+    
+    
+    
+        
+
     
 class KVMusicApp(App):
     
