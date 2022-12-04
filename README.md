@@ -4,7 +4,9 @@
 
 The App is a **free-TIme** Project, that came to, from a spurt of randomness.
 
-Project already comes with pre-loaded with some songs, including the greatest song of all time: **Never gonna give you up**
+Project already comes with pre-loaded with some songs :).
+
+Pause Functionality still to be added.
 
 
 
