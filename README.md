@@ -1,5 +1,5 @@
 # Music-Player
-## Music Player written in Python Using the kivy Library by markbravo0312.
+## Music Player written in Python Using the kivy Android Library Framework.
 ### Licensed by Open-Source :)
 
 Greatest Music Player of all time
